@@ -70,16 +70,25 @@ def DFS(graph):
             visit(vertex)
 
 
-def BFS(graph, first=1):
+def BFS(graph, first=1, last=10):
     vertices_visited = [False for i in range(graph.vertices)]
     Q = [first]
+    shortest_pres = [None for i in range(graph.vertices)]
+    shortest_pres[first - 1] = 0
 
     while Q:
         current = Q[0]
         print(f"Visitied {current}")
         vertices_visited[current - 1] = True
         neighbors = sorted([i for i in graph.neighbors[current] if (i not in Q) and (not vertices_visited[i - 1])])
+        for neigh in neighbors:
+            shortest_pres[neigh - 1] = current
         Q = Q[1:] + neighbors
+
+    while last > 0:
+        print(last, end=" ")
+        last = shortest_pres[last - 1]
+
         
 
 
@@ -109,7 +118,7 @@ print(T2.create_code(11))
 
 G = Graph(10)
 graph_edges = [
-    (1,3),(1,4),(2,5),(2,6),(3,6),(3,7),(3,8),(3,4),(4,8),(4,9),(5,7),(7,8),(7,10),(8,9),(8,10),(9,10)
+    (1,3),(1,2),(1,4),(2,5),(2,6),(3,6),(3,8),(3,4),(4,8),(4,9),(5,7),(7,8),(7,10),(8,9),(8,10),(9,10)
 ] 
 for i in graph_edges:
     G.add_edge(i)
