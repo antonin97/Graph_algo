@@ -13,19 +13,6 @@ def string_to_graph(x):
 with open('test_graph.txt', 'r') as file:
     file_contents = file.read()
 
-'''
-G = string_to_graph(file_contents)
-G.add_edge((1, 2))
-G.neighbor_matrix()
-'''
-
-
-T = Tree(20)
-tree_edges = [
-    (1,2),(1,3),(1,4),(2,5),(2,6),(2,7),(2,8),(6,14),(6,15),(6,16),(8,17),(3,9),(3,10),(4,11),(4,12),(4,13),(11,18),(13,19),(13,20)
-]
-for i in tree_edges:
-    T.add_edge(i)
 
 def check_valid_code(code):
     counter = 0
@@ -58,8 +45,61 @@ def tree_from_code(code):
     else:
         print("Code invalid!")
 
+
+
+def DFS(graph):
+    number_of_components = 0
+    vertices_visited = [False for i in range(graph.vertices)]
+
+    def visit(vertex):
+        vertices_visited[vertex - 1] = True
+        neighbors = sorted(graph.neighbors[vertex])
+        for neighbor in neighbors:
+            if not vertices_visited[neighbor - 1]:
+                visit(neighbor)
+        else:
+            print(f"Visited {vertex}")
+
+            return
+
+    for vertex in range(1, graph.vertices + 1):
+        if vertices_visited[vertex - 1]:
+            pass
+        else:
+            number_of_components += 1
+            visit(vertex)
+
+
+
+
+
+
+
+''''
+
+G = string_to_graph(file_contents)
+G.neighbor_matrix()
+
+T = Tree(20)
+tree_edges = [
+    (1,2),(1,3),(1,4),(2,5),(2,6),(2,7),(2,8),(6,14),(6,15),(6,16),(8,17),(3,9),(3,10),(4,11),(4,12),(4,13),(11,18),(13,19),(13,20)
+]
+for i in tree_edges:
+    T.add_edge(i)
+
+
 print(T.neighbors)
 print(T.create_code(1))
 
 T2 = tree_from_code("0001001010110100111001011000110100101111")
 print(T2.create_code(11))
+'''
+
+G = Graph(6)
+graph_edges = [
+    (1,2),(2,3),(1,4),(4,5),(2,5),(2,6),(3,6),(3,5)
+] 
+for i in graph_edges:
+    G.add_edge(i)
+
+DFS(G)
