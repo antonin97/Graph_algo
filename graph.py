@@ -52,14 +52,14 @@ def DFS(graph):
     vertices_visited = [False for i in range(graph.vertices)]
 
     def visit(vertex):
+        print(f"Visited {vertex}")
+
         vertices_visited[vertex - 1] = True
         neighbors = sorted(graph.neighbors[vertex])
         for neighbor in neighbors:
             if not vertices_visited[neighbor - 1]:
                 visit(neighbor)
         else:
-            print(f"Visited {vertex}")
-
             return
 
     for vertex in range(1, graph.vertices + 1):
@@ -69,6 +69,18 @@ def DFS(graph):
             number_of_components += 1
             visit(vertex)
 
+
+def BFS(graph, first=1):
+    vertices_visited = [False for i in range(graph.vertices)]
+    Q = [first]
+
+    while Q:
+        current = Q[0]
+        print(f"Visitied {current}")
+        vertices_visited[current - 1] = True
+        neighbors = sorted([i for i in graph.neighbors[current] if (i not in Q) and (not vertices_visited[i - 1])])
+        Q = Q[1:] + neighbors
+        
 
 
 
@@ -95,11 +107,11 @@ T2 = tree_from_code("0001001010110100111001011000110100101111")
 print(T2.create_code(11))
 '''
 
-G = Graph(6)
+G = Graph(10)
 graph_edges = [
-    (1,2),(2,3),(1,4),(4,5),(2,5),(2,6),(3,6),(3,5)
+    (1,3),(1,4),(2,5),(2,6),(3,6),(3,7),(3,8),(3,4),(4,8),(4,9),(5,7),(7,8),(7,10),(8,9),(8,10),(9,10)
 ] 
 for i in graph_edges:
     G.add_edge(i)
 
-DFS(G)
+BFS(G)
