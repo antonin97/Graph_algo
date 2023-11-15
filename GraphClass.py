@@ -17,9 +17,10 @@ class Graph:
         elif (isinstance(edge[0], int) and 1 <= edge[0] <= self.vertices) and (isinstance(edge[1], int) and 1 <= edge[1] <= self.vertices):
             if (edge[0], edge[1]) in self.edges or (edge[1], edge[0]) in self.edges:
                 pass
-            self.edges.append((edge[0], edge[1]))
-            self.neighbors[edge[0]].append(edge[1])
-            self.neighbors[edge[1]].append(edge[0])
+            else:
+                self.edges.append((edge[0], edge[1]))
+                self.neighbors[edge[0]].append(edge[1])
+                self.neighbors[edge[1]].append(edge[0])
 
     def neighbor_matrix(self):
         first_line = " ".join([str(i + 1) for i in range(self.vertices)])
