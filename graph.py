@@ -172,16 +172,7 @@ def maze_to_graph(maze):
     print_maze(maze_out)
     print("_" * 50)
 
-
-
-
-
-
-
-
-
 ''''
-
 G1 = string_to_graph(file_contents)
 G1.neighbor_matrix()
 
@@ -208,7 +199,6 @@ for i in graph_edges:
 
 BFS(G2, 4)
 '''
-
 # Open the file for reading
 with open('maze.txt', 'r') as file:
     maze = file.read()
